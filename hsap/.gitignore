@@ -94,3 +94,14 @@ archive/
 !paper_working/notes/
 !paper_working/empirical_proxy/
 !paper_working/references.bib
+
+# Publication PDFs intentionally tracked
+!arxiv/
+!arxiv/latex/
+!arxiv/latex/figures/
+!arxiv/figures/
+!arxiv/figures/final/
+
+!arxiv/latex/hsap.pdf
+!arxiv/latex/figures/*.pdf
+!arxiv/figures/final/*.pdf
