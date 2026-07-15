@@ -7,13 +7,13 @@
 ## Scientific Status
 
 **Model:** HSAP v0.1.0 — validated simulation framework  
-**Pipeline:** 3,050 seeds, 61 scenarios, null/ablation suite, sensitivity analysis, GA exploration
+**Pipeline:** 1,970 seeds (4 core × 50, 3 sink × 50, 54 factorial × 30), 61 scenarios, null/ablation suite, sensitivity analysis, GA exploration
 
 ### Experiment Suite
 
 | Suite | Scope | Status |
 |---|---|---|
-| Paper experiments | 50 seeds x 61 scenarios | Validated |
+| Paper experiments | 61 scenarios (mixed-depth) | Validated |
 | Null models | 7 core scenarios, population-only MSE | Complete |
 | Ablation | Hormone removal conditions | Complete |
 | Sensitivity | Parameter sweep | Complete |

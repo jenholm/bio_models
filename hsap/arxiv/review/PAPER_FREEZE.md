@@ -5,7 +5,7 @@
 **Date**: 2026-06-26
 
 ## Freeze Rules
-1. **No re-running simulations** — all 3050 seeds validated, data frozen.
+1. **No re-running simulations** — all 1,970 seeds validated, data frozen.
 2. **No new null/ablation models** — existing 11 nulls + 6 ablations are final.
 3. **Text changes only** — editing prose, labels, captions is fine.
 4. **Figure tweaks allowed** — colors, layout, fonts, labels only; no new data.

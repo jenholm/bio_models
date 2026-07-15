@@ -133,13 +133,13 @@ $$sink\_factor = \min\left(1, \frac{density - 0.75}{1 - 0.75}\right)$$
 
 **Post-sink recovery.** After sink disengagement, a recovery phase lasting 100 steps begins. During recovery: fertility and mating drive are multiplicatively boosted by 1.3; mortality is reduced to 40% of normal. If population drops below 30 during recovery, refugees (up to 10 per step) are injected to supplement the depleted population.
 
-**Sink Factor in the HSAP Index.** The HSAP index incorporates sink state: when the sink is active, the index is dampened, reflecting the disruption of normal social-endocrine regulation.
+**Sink Factor in the HSAP Composite Indicator.** The composite indicator incorporates sink state: when the sink is active, the indicator is dampened, reflecting the disruption of normal social-endocrine regulation.
 
 ## 2.8 Metrics
 
-Per time step, HSAP records: population size, density, sex ratio, resource abundance, predator pressure, disease pressure, territory availability, age structure (juvenile/adult/senior counts), mean hormones (testosterone, estrogen, cortisol, male_T, female_T), behavioral outputs (male/female aggression, female defense), reproductive metrics (fertility, births, deaths, matings, pregnancies, infanticide, neglect, refugees), sink state (active, post-recovery, sink_factor), external threat index, and the composite HSAP index.
+Per time step, HSAP records: population size, density, sex ratio, resource abundance, predator pressure, disease pressure, territory availability, age structure (juvenile/adult/senior counts), mean hormones (testosterone, estrogen, cortisol, male_T, female_T), behavioral outputs (male/female aggression, female defense), reproductive metrics (fertility, births, deaths, matings, pregnancies, infanticide, neglect, refugees), sink state (active, post-recovery, sink_factor), external threat index, and the HSAP composite indicator.
 
-The HSAP index is a weighted composite of five signals: low external threat (25%), low male aggression (20%), high female aggression (20%), low fertility (20%), and population stability (15%), with a viability dampener for populations below 50.
+The HSAP composite indicator is an analytical summary metric, not a directly measurable biological quantity. It is a weighted composite of five signals: low external threat (25%), low male aggression (20%), high female aggression (20%), low fertility (20%), and population stability (15%), with a viability dampener for populations below 50. The weights were chosen to reflect the model's hypothesized causal chain; they are not fit to data.
 
 **Summary metrics** (computed over the full run): final population, peak population, minimum population, crash ratio (final/peak), time to stability, mean male/female testosterone, mean male/female aggression, mean fertility, mean cortisol, extinction status, and seed number.
 

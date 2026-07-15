@@ -6,7 +6,6 @@
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{hyperref}
-\usepackage{cleveref}
 \usepackage{natbib}
 \usepackage{lineno}
 \usepackage{geometry}
@@ -25,11 +24,8 @@ A Computational Framework for Exploring Behavioral Stabilization Under Ecologica
 \maketitle
 
 \begin{abstract}
-Population stabilization following predator removal is a central problem in conservation biology, yet the mechanistic pathways linking threat reduction to population outcomes remain poorly understood. We present HSAP (Hormonal-Social Adaptation Population model), an agent-based model in which individuals regulate testosterone, aggression, and reproductive effort in response to perceived predation threat and density. We ran 50 seeds for seven core/sink scenarios and 30 seeds for each factorial scenario, yielding 1,970 simulation seeds across 61 scenarios. Under reduced threat, populations stabilized at higher densities with lower male testosterone and aggression, consistent with relaxed competitive endocrine signaling (Cohen $d=3.29$, non-overlapping 95\% CIs). Under crowding, populations crashed despite resource abundance. Under behavioral sink conditions, populations either recovered (sink engagement rate 62\%, recovery rate 36\%) or produced partial collapse with nonzero extinction risk (14\% across 50 seeds). A null model suite of 11 alternatives could not distinguish HSAP from logistic growth, predator-prey, or density-fertility models on population trajectories alone. HSAP became testable only when population outcomes were paired with behavioral and endocrine observables. These simulations show that, under model assumptions, endocrine-linked behavioral feedbacks are sufficient to generate qualitatively distinct population dynamics under identical resource conditions, and that population data alone are insufficient to identify the mechanistic pathways driving stabilization or collapse. We further identify contemporary endocrine and sex-disaggregated behavioral proxy datasets as candidate empirical observables for future HSAP-style testing, while emphasizing that these ecological data are exploratory and non-causal.
+Ecological conditions that reduce mortality pressure can alter the selective environment experienced by populations, yet most population regulation models focus on density-dependent resource competition and predation without incorporating endocrine-mediated behavioral feedbacks. We present HSAP (Hormonal-Social Adaptation Population model), an agent-based model testing whether coupled behavioral and endocrine mechanisms can influence population stability under reduced external threat. In HSAP, individuals regulate testosterone, cortisol, and estrogen in response to perceived predation risk and population density. These hormonal states drive behavioral outputs---aggression, fertility, mating drive---that feed back into population dynamics through a density-dependent behavioral sink mechanism with hysteresis. We evaluated 61 scenarios (4 core conditions, 3 sink variants, 54-factorial parameter sweep) across 1,970 validated simulation runs. Under reduced predation and disease pressure, populations stabilized at higher densities with reduced male testosterone and aggression (Cohen $d=3.29$). Under high space constraint with abundant resources, populations declined to 31\% of the resource-matched uncrowded condition, demonstrating crowding pathology through fertility suppression. Under behavioral sink conditions, populations either recovered or produced partial collapse with 14\% extinction risk. A null model suite of 11 alternatives could not distinguish HSAP from logistic growth, predator-prey, or density-fertility models on population trajectories alone; HSAP became identifiable only when behavioral and endocrine observables were included. These results are simulation-consistent: under the model's assumptions, endocrine-linked behavioral feedbacks can produce qualitatively distinct population dynamics under identical resource conditions, but population data alone are insufficient to identify the mechanistic pathways involved. The model does not establish that these mechanisms operate in natural populations; empirical validation requires paired endocrine and behavioral field measurements.
 \end{abstract}
-
-%% TODO: Add MSC classifications
-%% TODO: Add keywords
 
 \linenumbers
 
@@ -37,7 +33,6 @@ Population stabilization following predator removal is a central problem in cons
 \input{sections/methods}
 \input{sections/results}
 \input{sections/discussion}
-\input{sections/limitations}
 \input{sections/conclusion}
 
 \bibliographystyle{plainnat}

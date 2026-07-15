@@ -35,7 +35,7 @@ python scripts/run_baseline.py 2>/dev/null || echo "Baseline skipped"
 # Run paper experiments
 echo ""
 echo "=== Running paper experiments ==="
-echo "(50 seeds x 61 scenarios -- may take 30+ minutes)"
+echo "(1,970 seeds across 61 scenarios -- may take 30+ minutes)"
 python scripts/run_paper_experiments.py 2>/dev/null || echo "Paper experiments skipped"
 
 # Run null/ablation suite

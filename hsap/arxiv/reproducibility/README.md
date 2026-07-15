@@ -34,7 +34,7 @@ python scripts/make_paper_figures.py --dpi 300
 | Step | Script | Output | Time |
 |---|---|---|---|
 | Baseline | `run_baseline.py` | Single run CSV | ~5s |
-| Paper experiments | `run_paper_experiments.py` | 3,050 seed CSVs | ~30min |
+| Paper experiments | `run_paper_experiments.py` | 1,970 seed CSVs | ~30min |
 | Null/ablation | `run_null_ablation_suite.py` | Null + ablation JSON | ~10min |
 | Sensitivity | `run_paper_sensitivity.py` | Morris + Sobol tables | ~15min |
 | Figures | `make_paper_figures.py` | 9 figures (PNG + PDF) | ~2min |

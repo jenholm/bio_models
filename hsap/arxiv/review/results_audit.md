@@ -1,14 +1,14 @@
 # Results Audit — Internal Quality Check
 
 ## Validation Summary
-- **3050/3050 seeds validated OK** (61 scenarios × 50 seeds)
+- **1970/1970 seeds validated OK** (4 core × 50 + 3 sink × 50 + 54 factorial × 30)
 - Ledger: `results/paper/pipeline_state.sqlite`
 - All null/ablation runs completed for 7 core scenarios
 
 ## Key Numbers (pre-freeze)
 | Metric | Value | Notes |
 |--------|-------|-------|
-| Scenarios | 61 factorial | 50 seeds each |
+| Scenarios | 61 total | 4 core × 50 + 3 sink × 50 + 54 factorial × 30 |
 | Core scenarios | 7 | A, B, Cc, Cs, D, E, F |
 | Null models | 11 | N0–N10 |
 | Ablation models | 6 | 6 mechanism-removal variants |

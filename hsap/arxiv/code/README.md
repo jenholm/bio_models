@@ -36,7 +36,7 @@ python scripts/run_resumable_pipeline.py
 
 ### Individual steps
 ```bash
-# 1. Run paper experiments (50 seeds × 61 scenarios)
+# 1. Run paper experiments (1,970 seeds across 61 scenarios)
 python scripts/run_paper_experiments.py
 
 # 2. Run null model + ablation suite

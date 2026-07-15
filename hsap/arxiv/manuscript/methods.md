@@ -32,6 +32,7 @@ The environment provides five static parameters and several dynamic state variab
 - `territory_availability`: $\max(0, 1 - \rho \cdot S)$, where $\rho = N / K$
 - `predation_risk`: $P \cdot (1 + 0.5 \cdot \rho)$
 - `disease_risk`: $D \cdot (1 + 0.5 \cdot \rho)$
+- `resource_scarcity`: $\max(0, 1 - R)$, used in cortisol, aggression, and mortality equations
 
 ## 2.4 Endocrine Update
 
@@ -64,9 +65,30 @@ From hormones, agents derive:
 - **Mating drive**: males $= T \cdot 0.5 + 0.3$; females $= E \cdot 0.4 + 0.2$
 - **Offspring survival probability**: affected by testosterone, cortisol, density, and resource scarcity
 
-Agents select actions stochastically from: forage, dominate, disperse, withdraw, cooperate, guard_offspring. Action probabilities depend on current behavioral state and environmental conditions.
+**Behavioral decision process.** At each time step, agents select one action from a fixed repertoire: forage, dominance_event, disperse, withdraw, cooperate, guard_offspring. Selection follows a priority-based stochastic process:
 
-<!-- TODO: Specify action selection probability formulas -->
+1. **Forage** (deterministic): if energy $< 0.3$
+2. **Guard offspring** (deterministic): if female with dependent offspring and cortisol $> 0.6$
+3. **Dominance event**: probability $= \text{aggression\_tendency} \times 0.3$
+4. **Disperse**: if density $> 0.6$, age $> 15$, probability $= 0.1$
+5. **Withdraw**: if cortisol $> 0.7$, probability $= 0.3 + \eta \cdot \beta_{\text{withdraw}}$
+6. **Cooperate**: if energy $> 0.7$, probability $= 0.1$
+7. **Forage** (default)
+
+Each action modifies agent state:
+
+| Action | Energy | Rank | Other effects |
+|---|---|---|---|
+| Forage (success) | $+0.2$ to $+0.4$ | — | Success prob $= 0.7 + 0.15 \cdot \text{rank} - 0.3 \cdot (1-R)$ |
+| Forage (fail) | $-0.05(1+\rho)$ | — | — |
+| Dominance (win) | $-0.15$ | $+0.05$ | Win prob $= 0.5 + 0.2(\text{rank}-0.5) + 0.15T$ |
+| Dominance (lose) | $-0.225$ | $-0.05$ | 10% injury probability |
+| Disperse | $-0.3$ | $-0.1$ | Cooldown 10 steps |
+| Withdraw | $+0.05$ | $-0.02$ | — |
+| Cooperate | $+0.05$ | — | cooperation\_bonus $+= 0.02$ (cap 0.3) |
+| Guard offspring | $-0.1$ | — | Guarding flag set |
+
+All action effects are clamped to $[0, 1]$.
 
 ## 2.6 Reproduction
 
@@ -110,15 +132,15 @@ $$\eta = \min\left(1,\; \frac{\rho - 0.75}{1 - 0.75}\right)$$
 
 **Post-sink recovery.** After sink disengagement, a recovery phase lasting 100 steps begins. During recovery: fertility and mating drive are multiplicatively boosted by 1.3; mortality is reduced to 40% of normal. If population drops below 30 during recovery, refugees (up to 10 per step) are injected to supplement the depleted population.
 
-**Sink Factor in the HSAP Index.** The HSAP index incorporates sink state: when the sink is active, the index is dampened, reflecting the disruption of normal social-endocrine regulation.
+**Sink Factor in the HSAP Composite Indicator.** The composite indicator incorporates sink state: when the sink is active, the indicator is dampened, reflecting the disruption of normal social-endocrine regulation.
 
 ## 2.9 Metrics
 
-Per time step, HSAP records: population size, density, sex ratio, resource abundance, predator pressure, disease pressure, territory availability, age structure (juvenile/adult/senior counts), mean hormones (testosterone, estrogen, cortisol, male_T, female_T), behavioral outputs (male/female aggression, female defense), reproductive metrics (fertility, births, deaths, matings, pregnancies, infanticide, neglect, refugees), sink state (active, post-recovery, sink_factor), external threat index, and the composite HSAP index.
+Per time step, HSAP records: population size, density, sex ratio, resource abundance, predator pressure, disease pressure, territory availability, age structure (juvenile/adult/senior counts), mean hormones (testosterone, estrogen, cortisol, male_T, female_T), behavioral outputs (male/female aggression, female defense), reproductive metrics (fertility, births, deaths, matings, pregnancies, infanticide, neglect, refugees), sink state (active, post-recovery, sink_factor), external threat index, and the HSAP composite indicator.
 
-The HSAP index is a weighted composite of five signals: low external threat (25%), low male aggression (20%), high female aggression (20%), low fertility (20%), and population stability (15%), with a viability dampener for populations below 50.
+The HSAP composite indicator is an analytical summary metric, not a directly measurable biological quantity. It is a weighted composite of five signals: low external threat (25%), low male aggression (20%), high female aggression (20%), low fertility (20%), and population stability (15%), with a viability dampener for populations below 50. The weights were chosen to reflect the model's hypothesized causal chain; they are not fit to data.
 
-**Summary metrics** (computed over the full run): final population, peak population, minimum population, crash ratio (final/peak), time to stability, mean male/female testosterone, mean male/female aggression, mean fertility, mean cortisol, extinction status, and seed number.
+**Summary metrics** (computed over the full run): final population, peak population, minimum population, crash ratio (final/peak), time to stability, mean male/female testosterone, mean male/female aggression, mean fertility, mean cortisol, extinction status, and run number.
 
 ## 2.10 Null Models
 
@@ -151,3 +173,25 @@ python scripts/run_resumable_pipeline.py validate
 python scripts/run_resumable_pipeline.py summarize
 python scripts/make_paper_figures.py --dpi 300
 ```
+
+## 2.12 Parameterization and Model Calibration
+
+HSAP parameters were not estimated through optimization against empirical population trajectories. Instead, parameters define a computational experiment space used to examine whether coupled ecological and behavioral feedback mechanisms can generate emergent population dynamics. Biological literature informed the direction and plausibility of several mechanisms (e.g., testosterone suppresses aggression when threat is low; cortisol suppresses fertility), while numerical values function as model assumptions and scenario controls. The model contains 71 free parameters across six parameter classes (endocrine, behavioral, reproduction, mortality, environment, and GA). A full parameter table with provenance is provided in the supplementary materials.
+
+This parameterization strategy is appropriate for the model's purpose: HSAP is a computational exploration, not a predictive statistical model. The question is not whether specific parameter values match empirical data, but whether the class of feedback structures described by HSAP can produce qualitatively distinct population dynamics under defined assumptions.
+
+## 2.13 Spatial Representation
+
+The model uses a well-mixed population approximation. Agents are not assigned explicit spatial coordinates; interactions represent aggregate social dynamics rather than localized territorial processes. Territory availability is computed as a scalar function of density ($\tau = \max(0, 1 - \rho \cdot S)$), not as a spatially explicit resource landscape. This abstraction is appropriate for the model's scope: HSAP tests endocrine-behavioral feedback mechanisms, not spatial ecology.
+
+## 2.14 Interaction Model
+
+Social interactions are represented as pairwise anonymous encounters rather than persistent network relationships. At each step, agents are processed in随机 order. Mating pairs are formed by selecting a male with probability proportional to mating drive and pairing with a randomly selected fertile female. Dominance contests occur when an agent selects the dominance event action; the opponent is not explicitly modeled (outcomes depend on the acting agent's rank and testosterone). There is no kin recognition, no reciprocal altruism, and no reputation system. Cooperation accumulates a bounded bonus ($\leq 0.3$) but does not create social bonds.
+
+## 2.15 Resource Scarcity
+
+Resource scarcity is defined as:
+
+$$\text{resource\_scarcity} = \max(0,\; 1 - R_t)$$
+
+where $R_t$ is the current resource abundance. This scalar appears in the cortisol update, female testosterone update, aggression computation, offspring survival probability, and mortality equations. It represents the gap between current resource availability and maximum resource capacity, not a direct measure of starvation risk (which is modeled separately through the energy-based starvation mortality component).
