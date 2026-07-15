@@ -1,0 +1,53 @@
+# 5. Discussion
+
+## 5.1 What HSAP Supports
+
+Under model assumptions, HSAP shows that endocrine-linked behavioral feedbacks can generate qualitatively distinct population outcomes under identical resource conditions. The same resource abundance (0.60) produced populations of 141 (B_hsap_abundance), 44 (C_crowded_abundance), and 77 (D_high_predation_survival), depending on threat level and space constraint. These differences are simulation-consistent with the hypothesis that endocrine state mediates population regulation, not just resource availability.
+
+The behavioral sink mechanism produces two distinct outcomes depending on conditions: recovery (E) or partial collapse (F). The difference is not in the mechanism itself but in the environmental context — F operates under higher predation and disease pressure, preventing the density reduction needed to disengage the sink. This is simulation-consistent with the conservation concept that multiple stressors can trap populations in unsustainable behavioral states.
+
+## 5.2 What HSAP Does Not Prove
+
+HSAP is a simulation model, not an empirical study. It does not prove that endocrine feedbacks drive population dynamics in any specific species. It does not validate the specific parameter values used (which are illustrative, not empirically measured). It does not demonstrate that the behavioral sink mechanism exists in nature.
+
+The model shows that IF endocrine-linked behavioral feedbacks exist AND operate as modeled, THEN population-level consequences follow. The "if" is the empirical question that field studies must address.
+
+## 5.3 Why Endocrine and Behavioral Measurements Are Necessary
+
+The null model comparison is the paper's most important result for empirical science. Seven of 11 null models could not distinguish HSAP from simpler alternatives on population trajectories alone. Population data alone are insufficient to identify the mechanistic pathways driving stabilization or collapse.
+
+However, HSAP generates testable predictions in the joint space of population size, endocrine state, and behavior. A field study measuring population size AND male testosterone AND aggression can reject null models while retaining HSAP. The behavioral and endocrine observables that distinguish HSAP — particularly the male testosterone downshift under reduced threat — produce separable signatures in the observable variable space that no single-channel null model reproduces.
+
+This is a call for richer data in conservation biology, not a dismissal of population monitoring. Population data remain essential, but they are insufficient for mechanism identification.
+
+## 5.4 Model Limitations
+
+Several limitations constrain the interpretation of HSAP results:
+
+**Parameter values are illustrative.** The endocrine update equations, behavioral output functions, and sink mechanism are hypothesized, not empirically derived. Species-specific calibration is future work.
+
+**Endocrine variables are proxies.** Testosterone, cortisol, and estrogen in the model are continuous values on [0, 1] that represent qualitative endocrine states, not calibrated physiological measurements.
+
+**Population trajectories are partly non-identifiable.** This is both a result (Section 4.4) and a limitation: HSAP cannot be tested using population data alone.
+
+**Factorial scenarios use 30 seeds, not 50.** The mixed-depth design reflects a deliberate trade-off between statistical power for core scenarios and parameter-space exploration for factorial scenarios. If reviewers require equal depth, Set3 can be rerun at 50 seeds.
+
+**HSAP does not model human sexual orientation.** Non-reproductive sexual or social behavior is treated only as species-specific ethological behavior and requires explicit supporting data. Species-specific calibration is future work.
+
+## 5.5 Empirical Predictions
+
+HSAP generates three testable predictions for post-predator-removal populations:
+
+1. **Endocrine signature.** Male testosterone should decrease following predator removal, with the magnitude proportional to the reduction in perceived threat. This is the most direct test of the endocrine feedback loop.
+
+2. **Crowding pathology.** Populations in space-constrained environments should show higher cortisol and lower fertility than resource-matched populations in unconstrained environments, even when resource availability is identical.
+
+3. **Behavioral sink persistence.** Populations under high combined stressors (predation + disease + crowding) should show persistent reproductive suppression despite below-capacity density, consistent with the behavioral sink mechanism.
+
+These predictions are falsifiable and could be tested in post-predator-removal monitoring programs that include endocrine sampling.
+
+## 5.6 External Endocrine and Behavioral Proxy Evidence
+
+The external proxy evidence should be interpreted as empirical motivation rather than validation. Published secular endocrine studies report declines in male testosterone over multi-decade timescales [@travison2007; @lokeshwar2020]. Sex-disaggregated arrest statistics show increased female share of assault-related arrests relative to male trends. These trends are directionally compatible with the paper's methodological claim that HSAP-like mechanisms require paired endocrine and behavioral observables for empirical testing: the endocrine trend is consistent with relaxed competitive signaling under reduced threat, and the behavioral trend is consistent with altered behavioral output under crowding and sink conditions.
+
+However, the available series are ecological and confounded. Endocrine studies are cross-sectional and do not track individual-level change. Arrest data reflect behavior filtered through reporting, enforcement, and charging practices. The two data streams are not linked at the individual level. Their main value is to show how HSAP-like mechanisms could be tested: by pairing endocrine measurements with behavioral proxies rather than relying on population outcomes alone. Figure 9 illustrates the observable requirements: population data alone are non-identifiable, but endocrine and behavioral observables together define the variable space needed for empirical testing. Contemporary endocrine and behavioral proxy trends identify the class of observables needed to test HSAP-like mechanisms outside simulation, but these ecological data are exploratory and non-causal.

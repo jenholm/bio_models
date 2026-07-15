@@ -1,0 +1,55 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hsap"
+version = "0.1.0"
+description = "Hormonal-Social Adaptation Population model"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+  {name = "Jake Enholm"}
+]
+dependencies = [
+  "numpy",
+  "pandas",
+  "matplotlib",
+  "pyyaml",
+  "tqdm"
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest",
+  "pytest-cov"
+]
+sensitivity = [
+  "SALib"
+]
+ga = [
+  "deap"
+]
+paper = [
+  "scipy"
+]
+all = [
+  "pytest",
+  "pytest-cov",
+  "SALib",
+  "deap",
+  "scipy"
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+markers = [
+  "unit: fast unit tests",
+  "integration: simulation/integration tests",
+  "smoke: project smoke tests",
+  "slow: long-running tests"
+]

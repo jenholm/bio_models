@@ -1,0 +1,58 @@
+\section{Results}
+
+%% TODO: Verify all numbers against frozen data
+%% TODO: Check all CI calculations
+
+\subsection{Core Scenario Separation}
+
+All four core scenarios produced distinct population outcomes (Table~\ref{tab:core}, Figure~\ref{fig:trajectories}).
+
+\textbf{A\_normal\_baseline} stabilized at a mean population of 94 agents (95\% CI=$[89, 100]$) with zero extinctions across 50 seeds. Male testosterone averaged 0.994 (CI=$[0.993, 0.995]$).
+
+\textbf{B\_hsap\_abundance} (reduced threat) stabilized at 141 agents (CI=$[136, 147]$), a 50\% increase over baseline. Male testosterone shifted to 0.986 (CI=$[0.985, 0.987]$), directionally consistent with relaxed competitive endocrine signaling. The 95\% confidence intervals for male testosterone do not overlap between A and B (Cohen $d=3.29$). Male aggression similarly decreased from 0.895 (CI=$[0.892, 0.897]$) to 0.847 (CI=$[0.846, 0.849]$). The effect was statistically robust but modest in absolute magnitude (0.8 percentage points on a $[0,1]$ scale), indicating that the model's population-level separation is not driven by a large endocrine swing alone.
+
+%% TODO: Note that Cohen d is inflated by simulation precision — consider reporting effect size with biological context
+
+\textbf{C\_crowded\_abundance} (space constraint) stabilized at 44 agents (CI=$[41, 46]$), 47\% below baseline despite identical resource availability. Fertility was reduced to 0.436 (CI=$[0.433, 0.440]$) compared to 0.568 in B, indicating crowding pathology. Male testosterone was 0.982 (CI=$[0.980, 0.984]$), slightly lower than B, consistent with density-mediated endocrine suppression.
+
+\textbf{D\_high\_predation\_survival} (elevated threat) stabilized at 77 agents (CI=$[72, 81]$), 18\% below baseline. Male testosterone (0.997, CI=$[0.997, 0.998]$) and aggression (0.933, CI=$[0.932, 0.935]$) were elevated above baseline, consistent with predator-mediated selection pressure on endocrine state.
+
+\subsection{Crowding Pathology}
+
+The comparison between B\_hsap\_abundance (pop=141, fertility=0.568) and C\_crowded\_abundance (pop=44, fertility=0.436) shows that space constraint alone, with identical resources, can suppress population to 31\% of the resource-matched uncrowded condition. The crowding pathology manifests through reduced fertility, not increased mortality, consistent with density-dependent reproductive restraint rather than direct population control.
+
+\subsection{Sink, Recovery, and Collapse}
+
+The behavioral sink produced qualitatively distinct dynamics depending on scenario conditions (Table~\ref{tab:sink}, Figure~\ref{fig:sink}).
+
+\textbf{C\_crowded\_stable} (control) produced outcomes identical to C\_crowded\_abundance: pop=44, male\_T=0.982. This is consistent with the behavioral sink requiring its density-triggered mechanism; removing the trigger eliminates sink dynamics.
+
+\textbf{E\_behavioral\_sink\_recovery} produced the characteristic sink-recovery pattern. The sink engaged in 62\% of timesteps and disengaged in 36\%. Population dipped from an initial transient to a minimum of $\sim$75 agents, then recovered to $\sim$98 agents. The behavioral sink is reversible under these conditions: the hysteresis mechanism allowed density to fall below the deactivation threshold, triggering recovery with fertility and mating drive boosts and mortality relief.
+
+\textbf{F\_behavioral\_sink\_partial\_collapse} produced severe partial collapse. Population was reduced to $\sim$4 agents (CI=$[3, 5]$). Sink engagement rate was 55\%, but recovery rate was 0\% --- the behavioral sink never disengaged. Extinction occurred in 14\% of seeds (95\% CI=$[6\%, 24\%]$). This is partial collapse with nonzero extinction risk. The 14\% extinction rate reflects stochastic variation in mortality and reproduction under conditions of sustained reproductive suppression.
+
+\subsection{Null Model Non-Identifiability}
+
+The null model comparison reveals that population trajectories alone are partly non-identifiable across the null model suite (Table~\ref{tab:null}, Figure~\ref{fig:null}).
+
+Of 11 null models tested, 7 (logistic growth, predator-prey, density-fertility, dominance hierarchy, random hormone, density with recovery, random behavior) could not distinguish A from B using population trajectories alone (A/B MSE ratio $< 1.5$). Two models (disease pressure, endocrine-no-behavior) showed partial separation but with MSEs 25,000--86,000 compared to HSAP ablation MSEs of 70--2,458. One model (resource-only) distinguished A from B but with poor overall fit (MSE=23,850 for A).
+
+%% TODO: Justify the 1.5x MSE threshold — is this arbitrary?
+
+This non-identifiability is one of the paper's main results. It implies that a field study measuring population size alone cannot reject HSAP in favor of logistic growth, predator-prey dynamics, or density-dependent fertility. HSAP becomes testable only when population outcomes are paired with behavioral and endocrine observables --- specifically, male testosterone and aggression measurements that null models cannot reproduce.
+
+\subsection{Ablation Results}
+
+The HSAP ablation analysis quantifies the contribution of each model component (Table~\ref{tab:ablation}, Figure~\ref{fig:ablation}).
+
+Removing the male testosterone downshift channel increased B's population MSE from 73 (full model) to 565 --- a 7.8-fold increase. Removing the female aggression channel increased it to 397 (5.4-fold). These two components are the minimal endocrine mechanisms required for HSAP's distinguishing power: they produce population separation between A and B while maintaining low overall MSE.
+
+Removing cortisol increased MSE to 772--898 across scenarios, indicating a broader but less scenario-specific effect. Removing endocrine responsiveness (the coupling between hormones and behavior) produced larger MSE increases on B (2,458) than on A (913), indicating that the endocrine-behavioral coupling is more consequential under reduced threat.
+
+Removing sink recovery produced MSE=0 across all scenarios, because without the sink mechanism, the behavioral sink never engages and the recovery phase never begins. This is consistent with the internal consistency of the model.
+
+\subsection{Factorial Sensitivity}
+
+The 54-factorial analysis identifies space constraint as the dominant population regulator (Table~\ref{tab:factorial}, Figure~\ref{fig:phase}). Under low space constraint (0.40), populations ranged from 99--143 agents regardless of predation, disease, or resource levels. Under high space constraint (0.80), populations ranged from 4--13 agents under high predation and disease, showing that crowding pathology can override resource abundance.
+
+The factorial analysis also reveals interaction effects: high predator pressure combined with high disease pressure produced population collapse only under high space constraint, suggesting that multiple stressors are necessary for collapse when space is abundant.

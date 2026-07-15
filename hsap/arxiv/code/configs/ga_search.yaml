@@ -1,0 +1,84 @@
+random_seed: 42
+max_steps: 300
+initial_population: 100
+
+endocrine:
+  base_male_testosterone: 1.0
+  base_female_testosterone: 0.3
+  base_estrogen: 1.0
+  base_cortisol: 0.5
+  dominance_T_bonus: 0.3
+  mating_competition_T_bonus: 0.4
+  crowding_T_penalty: 0.3
+  low_threat_T_downshift: 0.4
+  poor_condition_T_penalty: 0.2
+  offspring_aggression_bonus: 0.5
+  resource_competition_aggression_bonus: 0.4
+  density_aggression_bonus: 0.3
+  endocrine_sensitivity_female: 0.5
+  stress_cortisol_rise: 0.05
+  rank_stress_buffer: 0.3
+  health_stress_amplifier: 0.5
+  fertility_T_penalty: 0.2
+  fertility_cortisol_penalty: 0.3
+  fertility_age_decline: 0.02
+  reproductive_restraint_density_threshold: 0.7
+  reproductive_restraint_max: 0.5
+  offspring_survival_T_effect: 0.1
+  offspring_survival_cortisol_penalty: 0.2
+
+behavior:
+  base_forage_success: 0.8
+  rank_forage_bonus: 0.15
+  energy_forage_threshold: 0.3
+  fight_win_rank_bonus: 0.2
+  fight_win_T_bonus: 0.15
+  fight_energy_cost: 0.1
+  fight_injury_prob: 0.08
+  dispersal_energy_cost: 0.3
+  dispersal_density_threshold: 0.6
+  cooperation_energy_bonus: 0.05
+  withdrawal_energy_save: 0.05
+
+reproduction:
+  gestation_time: 5
+  litter_size_mean: 4.0
+  litter_size_std: 1.0
+  mating_energy_threshold: 0.3
+  post_partum_energy_cost: 0.2
+  weaning_age: 10
+  infanticide_density_threshold: 0.8
+  infanticide_rate: 0.05
+  offspring_neglect_density_threshold: 0.7
+  offspring_neglect_cortisol_threshold: 0.7
+
+mortality:
+  base_mortality: 0.02
+  predation_mortality_base: 0.03
+  disease_mortality_base: 0.02
+  starvation_mortality_threshold: 0.15
+  starvation_mortality_max: 0.2
+  injury_mortality_bonus: 0.08
+  old_age_mortality_start: 50
+  old_age_mortality_rise: 0.01
+  infanticide_mortality: 0.05
+  crowding_mortality_bonus: 0.05
+
+environment:
+  resource_abundance: 1.0
+  resource_regeneration_rate: 0.05
+  predator_pressure: 0.5
+  disease_pressure: 0.3
+  carrying_capacity: 500
+  space_constraint: 0.5
+  seasonality: 0.0
+  territory_availability: 1.0
+
+ga:
+  population_size: 50
+  generations: 30
+  cx_prob: 0.7
+  mut_prob: 0.2
+  mut_eta: 20.0
+  cx_eta: 20.0
+  tournament_size: 3

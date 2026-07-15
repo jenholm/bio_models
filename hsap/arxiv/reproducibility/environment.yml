@@ -1,0 +1,17 @@
+name: hsap
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python>=3.10
+  - numpy
+  - pandas
+  - matplotlib
+  - pyyaml
+  - tqdm
+  - pip:
+    - SALib
+    - deap
+    - scipy
+    - pytest
+    - pytest-cov

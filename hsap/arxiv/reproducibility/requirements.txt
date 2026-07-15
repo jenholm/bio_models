@@ -1,0 +1,10 @@
+numpy
+pandas
+matplotlib
+pyyaml
+tqdm
+SALib
+deap
+scipy
+pytest
+pytest-cov

@@ -1,0 +1,46 @@
+\documentclass[11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage{natbib}
+\usepackage{lineno}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{Hormonal-Social Adaptation Population Model:\\
+A Computational Framework for Exploring Behavioral Stabilization Under Ecological Release}
+
+\author{Anonymous\\
+\textit{Independent Researcher}}
+
+\date{2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Population stabilization following predator removal is a central problem in conservation biology, yet the mechanistic pathways linking threat reduction to population outcomes remain poorly understood. We present HSAP (Hormonal-Social Adaptation Population model), an agent-based model in which individuals regulate testosterone, aggression, and reproductive effort in response to perceived predation threat and density. We ran 50 seeds for seven core/sink scenarios and 30 seeds for each factorial scenario, yielding 1,970 simulation seeds across 61 scenarios. Under reduced threat, populations stabilized at higher densities with lower male testosterone and aggression, consistent with relaxed competitive endocrine signaling (Cohen $d=3.29$, non-overlapping 95\% CIs). Under crowding, populations crashed despite resource abundance. Under behavioral sink conditions, populations either recovered (sink engagement rate 62\%, recovery rate 36\%) or produced partial collapse with nonzero extinction risk (14\% across 50 seeds). A null model suite of 11 alternatives could not distinguish HSAP from logistic growth, predator-prey, or density-fertility models on population trajectories alone. HSAP became testable only when population outcomes were paired with behavioral and endocrine observables. These simulations show that, under model assumptions, endocrine-linked behavioral feedbacks are sufficient to generate qualitatively distinct population dynamics under identical resource conditions, and that population data alone are insufficient to identify the mechanistic pathways driving stabilization or collapse. We further identify contemporary endocrine and sex-disaggregated behavioral proxy datasets as candidate empirical observables for future HSAP-style testing, while emphasizing that these ecological data are exploratory and non-causal.
+\end{abstract}
+
+%% TODO: Add MSC classifications
+%% TODO: Add keywords
+
+\linenumbers
+
+\input{sections/introduction}
+\input{sections/methods}
+\input{sections/results}
+\input{sections/discussion}
+\input{sections/limitations}
+\input{sections/conclusion}
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\end{document}

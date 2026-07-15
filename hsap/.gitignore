@@ -1,0 +1,96 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS/editor
+.DS_Store
+.vscode/
+.idea/
+
+# Generated simulation output
+results/
+data/generated_results/
+
+# Pipeline databases
+*.sqlite
+*.sqlite3
+*.db
+
+# Generated tables
+*.csv
+*.parquet
+
+# Generated figures — keep publication figures only
+arxiv/figures/draft/
+arxiv/data/generated_results/
+
+# Temporary experiment files
+tmp/
+temp/
+scratch/
+
+# Logs
+*.log
+
+# Build artifacts
+build/
+dist/
+
+# LaTeX temporary files
+*.aux
+*.bbl
+*.blg
+*.out
+*.toc
+*.synctex.gz
+
+# Release archives
+*.tar.gz
+*.zip
+
+# Machine-specific
+.env
+
+# Archive snapshots (development history, not publication)
+archive/
+
+# ============================================================
+# Explicitly retain arXiv source assets
+# ============================================================
+!arxiv/
+!arxiv/manuscript/
+!arxiv/latex/
+!arxiv/supplementary/
+!arxiv/review/
+!arxiv/reproducibility/
+!arxiv/latex/*.tex
+!arxiv/latex/*.bib
+!arxiv/manuscript/*.md
+!arxiv/supplementary/*.md
+!arxiv/reproducibility/*.yml
+!arxiv/reproducibility/*.txt
+!arxiv/reproducibility/*.sh
+!arxiv/reproducibility/*.md
+
+# Retain paper review framework
+!paper/internal/
+
+# Retain paper working notes
+!paper_working/notes/
+!paper_working/empirical_proxy/
+!paper_working/references.bib
