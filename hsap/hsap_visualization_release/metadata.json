@@ -1,0 +1,22 @@
+{
+  "application": "HSAP Visual Simulation",
+  "version": "1.0",
+  "model_version": "2026",
+  "paper": "HSAP: Human Social Adaptation Pressure Model",
+  "author": "Jake Enholm, Data Scientist",
+  "description": "Interactive browser visualization of the HSAP model. No server required.",
+  "contents": [
+    "index.html",
+    "js/hsap_visualization.js",
+    "js/hsap_data.js",
+    "css/hsap_visualization.css",
+    "LICENSE",
+    "README.md"
+  ],
+  "requirements": {
+    "browser": "Modern browser with Canvas 2D support",
+    "server": "None required",
+    "python": "None required",
+    "npm": "None required"
+  }
+}

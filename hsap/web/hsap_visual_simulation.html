@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HSAP Visual Simulation</title>
+<link rel="stylesheet" href="css/hsap_visual_simulation.css">
+</head>
+<body>
+
+<div id="loading">
+  <div class="spinner"></div>
+  <span>Loading simulation data...</span>
+</div>
+
+<header id="header">
+  <h1>HSAP <span>Visual Sim</span></h1>
+  <div id="controls">
+    <button id="play-btn" title="Space">⏸</button>
+    <button id="step-back" title="←">◀</button>
+    <button id="step-fwd" title="→">▶</button>
+    <button id="restart-btn" title="R">⟳</button>
+    <button id="comparison-btn" title="M">⊕ Compare</button>
+    <button id="png-btn" title="P">PNG</button>
+    <button id="about-btn" title="About">About</button>
+    <label>World:</label>
+    <select id="world-select">
+      <option>A_normal_baseline</option>
+      <option>B_hsap_abundance</option>
+      <option>C_crowded_abundance</option>
+      <option>D_high_predation_survival</option>
+      <option>E_behavioral_sink_recovery</option>
+      <option>F_behavioral_sink_extinction</option>
+    </select>
+  </div>
+</header>
+
+<div id="warning-ribbon"></div>
+
+<div id="main-grid">
+
+  <!-- Phase Map: density × threat -->
+  <div id="phase-map" class="panel">
+    <div class="panel-title">Phase Map</div>
+    <canvas id="phase-map-canvas"></canvas>
+  </div>
+
+  <!-- State Map: rank × energy scatter (replaces fake habitat) -->
+  <div id="state-map" class="panel">
+    <div class="panel-title">State Map <span id="badge" class="badge"></span></div>
+    <canvas id="state-map-canvas"></canvas>
+  </div>
+
+  <!-- Metric Inset (enhanced) -->
+  <div id="metric-inset" class="panel">
+    <div class="panel-title">Live Metrics</div>
+    <div id="metric-values"></div>
+  </div>
+
+  <!-- Age/Sex Mini Bars -->
+  <div id="agesex" class="panel">
+    <div class="panel-title">Age / Sex</div>
+    <canvas id="agesex-canvas"></canvas>
+  </div>
+
+  <!-- Action Composition Bar -->
+  <div id="action-bar" class="panel">
+    <div class="panel-title">Actions</div>
+    <canvas id="action-bar-canvas"></canvas>
+  </div>
+
+  <!-- Causal Chain -->
+  <div id="causal-chain" class="panel">
+    <div class="panel-title">Behavioral Chain</div>
+    <div class="chain" id="chain-container"></div>
+  </div>
+
+  <!-- About Panel (hidden by default) -->
+  <div id="about-panel" class="panel" style="display:none;grid-row:1;grid-column:4;overflow-y:auto;">
+    <div class="panel-title">About HSAP <span id="about-version" style="float:right;font-size:8px;color:var(--text-dim);"></span></div>
+    <div style="font-size:10px;line-height:1.5;color:var(--text-dim);padding:4px;">
+      <p><strong style="color:var(--text);">HSAP Visual Simulation</strong></p>
+      <p>Interactive visualization of the Human Social Adaptation Pressure model.</p>
+      <br>
+      <p><strong style="color:var(--text);">Paper</strong></p>
+      <p><em>HSAP: Human Social Adaptation Pressure Model</em></p>
+      <p>Jake Enholm, Data Scientist</p>
+      <p>2026</p>
+      <br>
+      <p><strong style="color:var(--text);">Model</strong></p>
+      <p>Tests whether predator scarcity, low disease pressure, and resource abundance can produce endocrine-linked behavioral shifts in mammalian populations.</p>
+      <br>
+      <p><strong style="color:var(--text);">Scenarios</strong></p>
+      <p>A: Baseline · B: Abundance · C: Crowded · D: Predation Survival · E: Sink Recovery · F: Collapse Risk</p>
+      <br>
+      <p><strong style="color:var(--text);">Links</strong></p>
+      <p>Repository: <a href="https://github.com/jenholm/bio_models/tree/main/hsap" target="_blank" style="color:var(--accent-cyan);">github.com/jenholm/bio_models/hsap</a></p>
+      <p>Paper: <a href="https://github.com/jenholm/bio_models/blob/main/hsap/arxiv/latex/hsap.pdf" target="_blank" style="color:var(--accent-cyan);">hsap.pdf</a></p>
+    </div>
+  </div>
+
+  <!-- Timeline (multi-line + event strip) -->
+  <div id="timeline" class="panel">
+    <div class="panel-title">Timeline</div>
+    <canvas id="timeline-canvas"></canvas>
+  </div>
+
+</div>
+
+<!-- Comparison Panel (hidden by default) -->
+<div id="comparison-panel">
+  <div class="cmp-card"><div class="cmp-title">A Baseline</div><canvas id="cmp-A_normal_baseline"></canvas></div>
+  <div class="cmp-card"><div class="cmp-title">B HSAP</div><canvas id="cmp-B_hsap_abundance"></canvas></div>
+  <div class="cmp-card"><div class="cmp-title">C Crowded</div><canvas id="cmp-C_crowded_abundance"></canvas></div>
+  <div class="cmp-card"><div class="cmp-title">D Predation</div><canvas id="cmp-D_high_predation_survival"></canvas></div>
+  <div class="cmp-card"><div class="cmp-title">E Recovery</div><canvas id="cmp-E_behavioral_sink_recovery"></canvas></div>
+  <div class="cmp-card"><div class="cmp-title">F Collapse Risk</div><canvas id="cmp-F_behavioral_sink_extinction"></canvas></div>
+</div>
+
+<div id="metric-refresh"></div>
+
+<script src="js/hsap_data.js"></script>
+<script src="js/hsap_visual_simulation.js"></script>
+</body>
+</html>
