@@ -3,16 +3,16 @@
 
 \subsection{Summary of Findings}
 
-Under the model's assumptions, HSAP demonstrates that coupled endocrine-behavioral feedbacks can generate population-level dynamics that differ from simpler null formulations. Four core scenarios produced distinct population outcomes under identical resource conditions: the same resource abundance (1.50) produced populations of 141 (\texttt{B\_hsap\_abundance}) and 44 (\texttt{C\_crowded\_abundance}), depending on space constraint and threat level. The behavioral sink mechanism produced two distinct outcomes --- recovery (E) or partial collapse (F) --- depending on environmental context, not mechanism design.
+Under the model's assumptions, HSAP shows that coupled endocrine-behavioral feedbacks can generate population-level dynamics that differ from simpler null formulations. Four core scenarios produced distinct population outcomes under identical resource conditions. The same resource abundance (1.50) produced populations of 141 (\texttt{B\_hsap\_abundance}) and 44 (\texttt{C\_crowded\_abundance}), depending on space constraint and threat level. The behavioral sink mechanism produced two distinct outcomes, recovery (S2) or partial collapse (S3), depending on environmental context, not mechanism design.
 
-These results are simulation-consistent, not proven. They demonstrate that the class of feedback structures described by HSAP is sufficient to produce qualitatively distinct population dynamics under defined assumptions. They do not demonstrate that these mechanisms operate in natural populations.
+These results are consistent with the simulation assumptions but do not establish that the proposed mechanisms operate in natural populations. Under the specified assumptions, the feedback structures implemented in HSAP can generate these dynamics. They do not show that these mechanisms operate in natural populations.
 
 \subsection{What This Paper Is Not}
 
 This paper is not:
 
 \begin{enumerate}
-\item \textbf{An empirical claim.} HSAP is a computational model. It does not establish that endocrine feedbacks drive population dynamics in any species. The parameter values are illustrative, not empirically calibrated.
+\item \textbf{An empirical claim.} HSAP is a computational model. It does not establish that endocrine feedbacks influence population dynamics in any species. The parameter values are illustrative, not empirically calibrated.
 
 \item \textbf{A predictive model.} HSAP does not predict population sizes, trajectories, or outcomes for specific ecosystems. It explores a class of feedback structures, not a specific parameterization.
 
@@ -23,7 +23,7 @@ This paper is not:
 \item \textbf{An optimization result.} The genetic algorithm exploration maps fitness landscapes; it does not identify optimal parameter values for biological populations.
 \end{enumerate}
 
-The paper's contribution is narrower: it identifies a family of coupled ecological-behavioral feedback mechanisms that can produce population-level dynamics distinguishable from simpler alternatives --- but only when behavioral and endocrine observables are included alongside population data.
+The paper's contribution is narrower: it identifies a family of coupled ecological-behavioral feedback mechanisms that can produce population-level dynamics distinguishable from simpler alternatives, but only when behavioral and endocrine observables are included alongside population data.
 
 \subsection{The Non-Identifiability Result}
 
@@ -33,7 +33,7 @@ This non-identifiability has two implications:
 
 \textbf{For modelers:} Population trajectories alone cannot discriminate between endocrine-mediated regulation and simpler ecological mechanisms. Any model producing reasonable population dynamics should be tested against null alternatives before claiming mechanistic specificity.
 
-\textbf{For empiricists:} Field studies measuring population size alone cannot reject HSAP in favor of logistic growth, or vice versa. HSAP becomes testable only when population outcomes are paired with behavioral and endocrine observables --- specifically, male testosterone and aggression measurements that null models cannot reproduce.
+\textbf{For empiricists:} Field studies measuring population size alone cannot reject HSAP in favor of logistic growth, or vice versa. HSAP becomes testable only when population outcomes are paired with behavioral and endocrine observables, specifically male testosterone and aggression measurements that null models cannot reproduce.
 
 This is a call for richer data in conservation biology, not a dismissal of population monitoring. Population data remain essential, but they are insufficient for mechanism identification.
 
@@ -49,7 +49,7 @@ HSAP generates three predictions for post-predator-removal populations, each fal
 \item \textbf{Behavioral sink persistence.} Populations under high combined stressors (predation + disease + crowding) should show persistent reproductive suppression despite below-capacity density, consistent with the behavioral sink mechanism.
 \end{enumerate}
 
-These predictions require paired endocrine and behavioral field measurements. They cannot be tested using population data alone --- a direct consequence of the non-identifiability result.
+These predictions require paired endocrine and behavioral field measurements. They cannot be tested using population data alone, a direct consequence of the non-identifiability result.
 
 \subsection{Model Limitations}
 
@@ -81,7 +81,7 @@ The behavioral sink concept has practical implications for conservation. If popu
 \item \textbf{Multiple stressors may create irreversible states.} Under model assumptions, the partial collapse scenario (F) shows that combinations of predation, disease, and crowding can produce persistent reproductive suppression that does not resolve when individual stressors are reduced.
 \end{enumerate}
 
-These implications are simulation-consistent, not proven. They suggest that conservation biology should consider endocrine and behavioral monitoring alongside population monitoring --- a recommendation that requires empirical validation.
+These implications require empirical validation. They suggest that conservation biology should consider endocrine and behavioral monitoring alongside population monitoring.
 
 \subsection{Future Work}
 

@@ -84,15 +84,15 @@ Removing sink recovery produced MSE=0 across all scenarios, because without the 
 
 ## 4.7 Factorial Sweep
 
-The 54-factorial analysis (predator_pressure: 0.1/0.4/0.8; disease_pressure: 0.05/0.3/0.7; resource_abundance: 0.4/1.0/1.5; space_constraint: 0.2/0.8; K=500) identifies space constraint as the dominant population regulator (Figure 8).
+The 54-factorial analysis identifies space constraint as the dominant population regulator (Figure 7).
 
-Under low space constraint (0.20), populations ranged from 99–143 agents regardless of predation, disease, or resource levels. Under high space constraint (0.80), populations ranged from 4–13 agents under high predation and disease, showing that crowding pathology can override resource abundance.
+Under low space constraint (0.20), populations ranged from 99–143 agents regardless of predation, disease, or resource levels. Under high space constraint (0.80), populations ranged from 7.7–99 agents, showing that crowding pathology can override resource abundance.
 
 The factorial analysis also reveals interaction effects: high predator pressure combined with high disease pressure produced population collapse only under high space constraint, suggesting that multiple stressors are necessary for collapse when space is abundant. Extinction was rare (only 2 of 54 conditions showed nonzero extinction, both at 3.3%).
 
 ## 4.8 Sensitivity Analysis
 
-The sensitivity analysis confirms that space constraint is the dominant parameter controlling population outcomes across the factorial space. Predator pressure and disease pressure have secondary effects, primarily manifesting under high space constraint. Resource abundance has the weakest independent effect on population size, consistent with the crowding pathology finding that space, not resources, limits population under crowded conditions.
+The factorial sweep suggests that space constraint had the strongest apparent association with final population size in the explored grid. A formal global sensitivity analysis was not included in the release package and should be treated as future work.
 
 ## 4.9 Genetic Algorithm Exploration
 

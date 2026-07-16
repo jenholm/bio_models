@@ -127,6 +127,13 @@ CORE_SCENARIOS = [
     "A_normal_baseline",
     "B_hsap_abundance",
     "C_crowded_abundance",
+    "D_high_predation_survival",
+]
+
+ALL_SCENARIOS = [
+    "A_normal_baseline",
+    "B_hsap_abundance",
+    "C_crowded_abundance",
     "C_crowded_stable",
     "D_high_predation_survival",
     "E_behavioral_sink_recovery",
@@ -138,7 +145,7 @@ def fig2_population_trajectories(out_path):
     fig, ax = plt.subplots(figsize=FIGSIZE_FULL)
 
     found = False
-    for name in CORE_SCENARIOS:
+    for name in ALL_SCENARIOS:
         sc_dir = SCENARIOS_DIR / name
         if not sc_dir.exists():
             continue
@@ -166,7 +173,9 @@ def fig2_population_trajectories(out_path):
         ax.fill_between(x, mean - ci, mean + ci, color=color, alpha=0.2)
 
     if not found:
-        ax.text(0.5, 0.5, "No scenario data found", ha="center", va="center", transform=ax.transAxes)
+        raise FileNotFoundError(
+            f"No scenario data found in {SCENARIOS_DIR} for core scenarios"
+        )
 
     ax.set_xlabel("Time Step")
     ax.set_ylabel("Population")
@@ -183,11 +192,9 @@ def fig2_population_trajectories(out_path):
 def fig3_metrics_comparison(out_path):
     summary_path = RESULTS_DIR / "scenario_summary.csv"
     if not summary_path.exists():
-        fig, ax = plt.subplots()
-        ax.text(0.5, 0.5, "scenario_summary.csv not found", ha="center", va="center", transform=ax.transAxes)
-        plt.savefig(out_path)
-        plt.close()
-        return
+        raise FileNotFoundError(
+            f"Required data file not found: {summary_path}"
+        )
 
     import pandas as pd
     df = pd.read_csv(summary_path)
@@ -220,10 +227,10 @@ def fig3_metrics_comparison(out_path):
                 "normal_baseline": "baseline",
                 "hsap_abundance": "abundance",
                 "crowded_abundance": "crowded",
-                "crowded_stable": "stable",
+                "crowded_stable": "S1 crowded-stable",
                 "high_predation_survival": "predation",
-                "behavioral_sink_recovery": "recovery",
-                "behavioral_sink_partial_collapse": "collapse",
+                "behavioral_sink_recovery": "S2 recovery",
+                "behavioral_sink_partial_collapse": "S3 collapse",
             }
             short = short_map.get(rest, rest.replace("_", " "))
             short_names.append(f"{prefix} {short}" if prefix else short)
@@ -232,7 +239,7 @@ def fig3_metrics_comparison(out_path):
         ax.set_title(label, fontsize=9)
         ax.set_ylim(0, 1)
 
-    fig.suptitle("Figure 3: Key Metrics Across Core Scenarios", fontsize=11, fontweight="bold")
+    fig.suptitle("Figure 3: Key Metrics Across HSAP Scenarios", fontsize=11, fontweight="bold")
     plt.tight_layout()
     plt.savefig(out_path)
     plt.close()
@@ -260,19 +267,15 @@ def fig4a_null_population(out_path):
     """Null models only produce population — single-column heatmap."""
     results = _load_null_ablation_results()
     if not results:
-        fig, ax = plt.subplots()
-        ax.text(0.5, 0.5, "null_ablation_results.json not found", ha="center", va="center", transform=ax.transAxes)
-        plt.savefig(out_path)
-        plt.close()
-        return
+        raise FileNotFoundError(
+            "Required data file not found: null_ablation_results.json"
+        )
 
     null_models = sorted(m for m in next(iter(results.values())) if _is_null_model(m))
     if not null_models:
-        fig, ax = plt.subplots()
-        ax.text(0.5, 0.5, "No null models found", ha="center", va="center", transform=ax.transAxes)
-        plt.savefig(out_path)
-        plt.close()
-        return
+        raise FileNotFoundError(
+            "No null models found in null_ablation_results.json"
+        )
 
     # Compute population MSE for each null model
     model_mse = []
@@ -340,11 +343,9 @@ def fig4b_ablation_heatmap(out_path):
     """Ablation models have all metrics — full heatmap."""
     results = _load_null_ablation_results()
     if not results:
-        fig, ax = plt.subplots()
-        ax.text(0.5, 0.5, "null_ablation_results.json not found", ha="center", va="center", transform=ax.transAxes)
-        plt.savefig(out_path)
-        plt.close()
-        return
+        raise FileNotFoundError(
+            "Required data file not found: null_ablation_results.json"
+        )
 
     all_models = set()
     for sc_name, models in results.items():
@@ -352,11 +353,9 @@ def fig4b_ablation_heatmap(out_path):
     ablation_models = sorted(m for m in all_models if _is_ablation_model(m))
 
     if not ablation_models:
-        fig, ax = plt.subplots()
-        ax.text(0.5, 0.5, "No ablation models found", ha="center", va="center", transform=ax.transAxes)
-        plt.savefig(out_path)
-        plt.close()
-        return
+        raise FileNotFoundError(
+            "No ablation models found in null_ablation_results.json"
+        )
 
     metrics_set = set()
     for sc_name, models in results.items():
@@ -467,11 +466,10 @@ def fig5_sink_trajectories(out_path):
         ax.fill_between(x, mean - ci, mean + ci, color=color, alpha=0.2)
 
     if not has_data:
-        ax.text(0.5, 0.5, "Sink scenario data not found", ha="center", va="center", transform=ax.transAxes)
-        plt.savefig(out_path)
-        plt.close()
-        print(f"  Figure 5 saved to {out_path}")
-        return
+        raise FileNotFoundError(
+            f"No sink scenario data found in {SCENARIOS_DIR}. "
+            f"Expected scenarios: {sink_scenarios}"
+        )
 
     # Sink-active shading (E only — only scenario that triggers sink)
     if "E_behavioral_sink_recovery" in trajectory_data:
@@ -552,11 +550,9 @@ def fig5_sink_trajectories(out_path):
 def fig6_sensitivity_tornado(out_path):
     sobol_path = RESULTS_DIR / "sensitivity" / "sobol_results.json"
     if not sobol_path.exists():
-        fig, ax = plt.subplots()
-        ax.text(0.5, 0.5, "Sobol results not found", ha="center", va="center", transform=ax.transAxes)
-        plt.savefig(out_path)
-        plt.close()
-        return
+        raise FileNotFoundError(
+            f"Required data file not found: {sobol_path}"
+        )
 
     results = json.loads(sobol_path.read_text())
     output = "final_population"
@@ -589,11 +585,9 @@ def fig7_ga_convergence(out_path):
 
     log_path = ga_dir / "support_log.csv"
     if not log_path.exists():
-        fig, ax = plt.subplots()
-        ax.text(0.5, 0.5, "GA convergence log not found", ha="center", va="center", transform=ax.transAxes)
-        plt.savefig(out_path)
-        plt.close()
-        return
+        raise FileNotFoundError(
+            f"Required data file not found: {log_path}"
+        )
 
     import pandas as pd
     log_df = pd.read_csv(log_path)
@@ -663,10 +657,10 @@ def fig8_phase_map(out_path):
         ax.text((x1 + x2) / 2, (y1 + y2) / 2, label,
                 ha="center", va="center", fontsize=8, color="#4a5070")
 
-    # Overlay trajectories from core scenarios
+    # Overlay trajectories from all scenarios
     import pandas as pd
     has_data = False
-    for name in CORE_SCENARIOS:
+    for name in ALL_SCENARIOS:
         sc_dir = SCENARIOS_DIR / name
         if not sc_dir.exists():
             continue

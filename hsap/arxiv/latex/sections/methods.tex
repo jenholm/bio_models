@@ -14,13 +14,13 @@ HSAP tests whether endocrine-linked behavioral feedbacks can generate population
 Each agent is characterized by sex (assigned 50/50 at birth), age (in model time steps; 10 steps = 1 model-year), and a suite of physiological and behavioral state variables. Agents are initialized with age drawn uniformly from $[5, 40)$ and energy, health, and rank set to 1.0, 1.0, and 0.5 respectively.
 
 \paragraph{Hormonal state.}
-Each agent carries three hormonal axes: testosterone, estrogen, and cortisol. Male testosterone is initialized near 1.0 (\texttt{base\_male\_testosterone}) with Gaussian noise (SD=0.15); female testosterone near 0.3 (SD=0.05). Estrogen is initialized near 1.0 for females and 0.3 for males. Cortisol is initialized near 0.5 for both sexes (SD=0.1). All hormonal values are clamped to $[0, 1]$ at each time step.
+Each agent carries three hormonal axes: testosterone, estrogen, and cortisol. Male testosterone is initialized near 1.0 (base value) with Gaussian noise (SD=0.15); female testosterone near 0.3 (SD=0.05). Estrogen is initialized near 1.0 for females and 0.3 for males. Cortisol is initialized near 0.5 for both sexes (SD=0.1). All hormonal values are clamped to $[0, 1]$ at each time step.
 
 \paragraph{Behavioral state.}
-Derived from hormones and environment at each step: \texttt{aggression\_tendency}, \texttt{maternal\_defense\_tendency} (females), \texttt{mating\_drive}, \texttt{fertility}, and \texttt{offspring\_survival\_probability}. These are recomputed every time step; agents do not carry fixed behavioral types.
+Derived from hormones and environment at each step: aggression tendency, maternal defense tendency (females), mating drive, fertility, and offspring survival probability. These are recomputed every time step; agents do not carry fixed behavioral types.
 
 \paragraph{Social state.}
-Each agent has a dominance rank (clamped $[0, 1]$), territory quality, \texttt{cooperation\_bonus} (accumulated from cooperative actions, capped at 0.3), and a pregnancy flag with gestation countdown (\texttt{gestation\_time} = 5 steps).
+Each agent has a dominance rank (clamped $[0, 1]$), territory quality, cooperation bonus (accumulated from cooperative actions, capped at 0.3), and a pregnancy flag with gestation countdown (5 steps).
 
 \subsection{Environment}
 \label{sec:environment}
@@ -130,9 +130,9 @@ All action effects are clamped to $[0, 1]$.
 \subsection{Reproduction}
 \label{sec:reproduction}
 
-Mating occurs when a randomly selected male (probability proportional to \texttt{mating\_drive}) encounters a fertile female above a fertility gate (default 0.3). Both must have energy above a threshold (0.4) and be in reproductive age (10--60 model-years). On successful mating, the female becomes pregnant with gestation time of 5 steps.
+Mating occurs when a randomly selected male (probability proportional to mating drive) encounters a fertile female above a fertility gate (default 0.3). Both must have energy above a threshold (0.4) and be in reproductive age (10--60 model-years). On successful mating, the female becomes pregnant with gestation time of 5 steps.
 
-At birth, litter size is drawn from a normal distribution (mean=4.0, SD=1.0, floored to 1). Each pup survives with probability determined by the mother's \texttt{offspring\_survival\_probability}. The mother pays an energy cost of 0.3. Newborns face an additional mortality check.
+At birth, litter size is drawn from a normal distribution (mean=4.0, SD=1.0, floored to 1). Each pup survives with probability determined by the mother's offspring survival probability. The mother pays an energy cost of 0.3. Newborns face an additional mortality check.
 
 \paragraph{Infanticide} triggers when density exceeds 0.8, with probability proportional to agent aggression and density above threshold. \paragraph{Offspring neglect} triggers when density exceeds 0.7 or cortisol exceeds 0.7, removing one offspring.
 
@@ -175,7 +175,7 @@ Here $\eta$ is the behavioral sink factor (Section~\ref{sec:sink}) and $M_{\text
 The behavioral sink is a density-driven phase transition that suppresses reproductive output even after density falls below carrying capacity.
 
 \paragraph{Activation.}
-When density exceeds \texttt{behavioral\_sink\_on\_threshold} (default 0.75), the sink engages. A \texttt{sink\_factor} is computed as a continuous measure of sink severity:
+When density exceeds the behavioral sink activation threshold (default 0.75), the sink engages. A sink factor is computed as a continuous measure of sink severity:
 
 \begin{equation}
 \eta = \min\left(1,\; \frac{\rho - 0.75}{1 - 0.75}\right)
@@ -186,7 +186,7 @@ When density exceeds \texttt{behavioral\_sink\_on\_threshold} (default 0.75), th
 Fertility is multiplicatively suppressed: $F \times (1 - \eta \cdot 0.85)$. Mating drive is suppressed: $M_d \times (1 - \eta \cdot 0.4)$. Withdrawal behavior and offspring neglect probabilities are increased.
 
 \paragraph{Deactivation (hysteresis).}
-The sink disengages only when density falls below \texttt{behavioral\_sink\_off\_threshold} (default 0.50), creating a hysteresis band (on at 0.75, off at 0.50). A minimum duration of 30 steps must elapse before deactivation is permitted. An optional auto-recovery timer (\texttt{behavioral\_sink\_auto\_recovery\_duration}) forces disengagement after a fixed number of steps.
+The sink disengages only when density falls below the behavioral sink deactivation threshold (default 0.50), creating a hysteresis band (on at 0.75, off at 0.50). A minimum duration of 30 steps must elapse before deactivation is permitted. An optional auto-recovery timer (default 100 steps) forces disengagement after a fixed number of steps.
 
 \paragraph{Post-sink recovery.}
 After sink disengagement, a recovery phase lasting 100 steps begins. During recovery: fertility and mating drive are multiplicatively boosted by 1.3; mortality is reduced to 40\% of normal. If population drops below 30 during recovery, refugees (up to 10 per step) are injected to supplement the depleted population.
@@ -201,7 +201,7 @@ Per time step, HSAP records: population size, density, sex ratio, resource abund
 
 The HSAP composite indicator is an analytical summary metric, not a directly measurable biological quantity. It is a weighted composite of five signals: low external threat (25\%), low male aggression (20\%), high female aggression (20\%), low fertility (20\%), and population stability (15\%), with a viability dampener for populations below 50. The weights were chosen to reflect the model's hypothesized causal chain; they are not fit to data.
 
-\paragraph{Summary metrics} (computed over the full run): final population, peak population, minimum population, crash ratio (final/peak), time to stability, mean male/female testosterone, mean male/female aggression, mean fertility, mean cortisol, extinction status, and run number.
+\paragraph{Summary metrics} (computed over the full run): final population, peak population, minimum population, crash ratio, time to stability, mean hormones (testosterone, estrogen, cortisol), mean aggression (male, female), mean fertility, extinction status, and run number.
 
 \subsection{Null Models}
 \label{sec:null_models}
@@ -236,9 +236,9 @@ We also tested six HSAP ablation variants, each removing one component: male tes
 \subsection{Software and Reproducibility}
 \label{sec:software}
 
-The model is implemented in Python 3.10+ using NumPy, pandas, Matplotlib, and tqdm. Sensitivity analysis uses SALib. Genetic algorithm search uses DEAP. The model code is available in \texttt{src/hsap/} with full test coverage in \texttt{tests/}.
+The model is implemented in Python 3.10+ using NumPy, pandas, Matplotlib, and tqdm. Sensitivity analysis uses SALib. Genetic algorithm search uses DEAP. The model code and tests are available in the source repository.
 
-All scenario definitions are frozen in \texttt{src/hsap/scenarios.py}. Simulation outputs are frozen in \texttt{results/freezes/}. The pipeline is reproducible via:
+All scenario definitions are frozen in the source repository. Simulation outputs are frozen in the results directory. The pipeline is reproducible via:
 
 \begin{verbatim}
 python scripts/run_resumable_pipeline.py validate

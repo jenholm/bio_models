@@ -30,4 +30,4 @@ Our contributions are: (1) a computational framework linking individual endocrin
 
 **Scope and boundaries.** HSAP is a mammalian population model. It does not model human sexual orientation; non-reproductive sexual or social behavior is treated only as species-specific ethological behavior requiring explicit supporting data. The model is simulation-consistent, not proven; empirical validation requires paired endocrine and behavioral field measurements.
 
-The paper is organized as follows: Section 2 describes the model. Section 3 presents the experimental design. Section 4 reports results. Section 5 discusses implications and limitations. Section 6 concludes.
+
