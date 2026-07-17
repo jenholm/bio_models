@@ -81,12 +81,12 @@ function drawPhaseMap() {
     { x1:0, y1:0, x2:0.5, y2:0.5, label:'Low Density\nAbundance', color:'rgba(102,187,106,0.06)' },
     { x1:0.5, y1:0, x2:1, y2:0.5, label:'HSAP\nCandidate', color:'rgba(79,195,247,0.06)' },
   ];
-  ctx.font = '9px sans-serif';
+  ctx.font = '11px sans-serif';
   ctx.textAlign = 'center';
   for (const r of regions) {
     ctx.fillStyle = r.color;
     ctx.fillRect(x(r.x1), y(r.y1), x(r.x2)-x(r.x1), y(r.y2)-y(r.y1));
-    ctx.fillStyle = '#4a5070';
+    ctx.fillStyle = '#8fa3bf';
     ctx.fillText(r.label, x((r.x1+r.x2)/2), y((r.y1+r.y2)/2)+12);
   }
 
@@ -99,7 +99,7 @@ function drawPhaseMap() {
   }
 
   // Axes
-  ctx.fillStyle = '#4a5070'; ctx.font = '10px sans-serif'; ctx.textAlign = 'center';
+  ctx.fillStyle = '#8fa3bf'; ctx.font = '12px sans-serif'; ctx.textAlign = 'center';
   ctx.fillText('Density →', x(0.5), H-4);
   ctx.save(); ctx.translate(8, y(0.5)); ctx.rotate(-Math.PI/2); ctx.fillText('External Threat →', 0, 0); ctx.restore();
 
@@ -144,7 +144,7 @@ function drawStateMap() {
   const f = STATE.frames[STATE.frameIndex];
   const sample = f.agent_sample || [];
   if (sample.length === 0) {
-    ctx.fillStyle = '#6a7090'; ctx.font = '14px sans-serif'; ctx.textAlign = 'center';
+    ctx.fillStyle = '#b8c7dd'; ctx.font = '16px sans-serif'; ctx.textAlign = 'center';
     ctx.fillText('No agents', W/2, H/2); return;
   }
 
@@ -162,7 +162,7 @@ function drawStateMap() {
   }
 
   // Axes labels
-  ctx.fillStyle = '#4a5070'; ctx.font = '10px sans-serif'; ctx.textAlign = 'center';
+  ctx.fillStyle = '#8fa3bf'; ctx.font = '12px sans-serif'; ctx.textAlign = 'center';
   ctx.fillText('Rank →', pad.left + pw/2, H-4);
   ctx.save(); ctx.translate(10, pad.top + ph/2); ctx.rotate(-Math.PI/2); ctx.fillText('Energy →', 0, 0); ctx.restore();
   ctx.textAlign = 'right'; ctx.fillText('1.0', pad.left-4, pad.top+10);
@@ -171,7 +171,7 @@ function drawStateMap() {
 
   // Extinction warning
   if (sample.length === 0) {
-    ctx.fillStyle = '#ef5350'; ctx.font = 'bold 24px sans-serif'; ctx.textAlign = 'center';
+    ctx.fillStyle = '#ef5350'; ctx.font = 'bold 28px sans-serif'; ctx.textAlign = 'center';
     ctx.fillText('POPULATION ZERO', W/2, H/2); return;
   }
 
@@ -226,7 +226,7 @@ function drawAgeSexBars() {
   if (STATE.frameIndex >= STATE.frames.length) return;
   const f = STATE.frames[STATE.frameIndex];
   const sample = f.agent_sample || [];
-  if (sample.length === 0) { ctx.fillStyle='#6a7090'; ctx.font='11px sans-serif'; ctx.textAlign='center'; ctx.fillText('No agents', W/2, H/2); return; }
+  if (sample.length === 0) { ctx.fillStyle='#b8c7dd'; ctx.font='13px sans-serif'; ctx.textAlign='center'; ctx.fillText('No agents', W/2, H/2); return; }
 
   const barW = Math.max(6, (W-20) / 3 - 4);
   const barH = H - 10;
@@ -251,7 +251,7 @@ function drawAgeSexBars() {
   }
 
   // Labels
-  ctx.fillStyle = '#4a5070'; ctx.font = '7px sans-serif'; ctx.textAlign = 'center';
+  ctx.fillStyle = '#c8d4e8'; ctx.font = '12px sans-serif'; ctx.textAlign = 'center';
   x = 6;
   for (const key of Object.keys(groups)) {
     const parts = key.split('_');
@@ -275,7 +275,7 @@ function drawActionBar() {
   const f = STATE.frames[STATE.frameIndex];
   const actions = f.actions || {};
   const total = Object.values(actions).reduce((a,b)=>a+b, 0);
-  if (total === 0) { ctx.fillStyle='#6a7090'; ctx.font='10px sans-serif'; ctx.textAlign='center'; ctx.fillText('No actions', W/2, H/2); return; }
+  if (total === 0) { ctx.fillStyle='#b8c7dd'; ctx.font='12px sans-serif'; ctx.textAlign='center'; ctx.fillText('No actions', W/2, H/2); return; }
 
   const barW = W - 12;
   const barH = Math.max(8, H - 20);
@@ -294,12 +294,12 @@ function drawActionBar() {
 
   // Legend
   let lx = 6;
-  ctx.font = '8px sans-serif'; ctx.textAlign = 'left';
+  ctx.font = '12px sans-serif'; ctx.textAlign = 'left';
   for (const act of actionOrder) {
     const count = actions[act] || 0;
     if (count === 0) continue;
     ctx.fillStyle = actionColors[act]; ctx.fillRect(lx, H-9, 6, 6);
-    ctx.fillStyle = '#6a7090'; ctx.fillText(`${act}(${count})`, lx+8, H-4);
+    ctx.fillStyle = '#c8d4e8'; ctx.fillText(`${act}(${count})`, lx+8, H-4);
     lx += ctx.measureText(`${act}(${count})`).width + 12;
     if (lx > W) break;
   }
@@ -364,9 +364,9 @@ function buildMetricInset() {
   const hsapBlock = document.createElement('div');
   hsapBlock.className = 'metric-block hsap-block';
   hsapBlock.innerHTML =
-    '<span style="color:#6a7090;font-size:11px;">HSAP Index: </span>' +
-    '<span id="metric-hsap-index" style="font-size:16px;font-weight:700;">0.000</span>' +
-    '<span id="metric-hsap-phase" style="font-size:11px;color:#6a7090;margin-left:6px;"></span>';
+    '<span style="color:#b8c7dd;font-size:12px;">HSAP Index: </span>' +
+    '<span id="metric-hsap-index" style="font-size:18px;font-weight:700;">0.000</span>' +
+    '<span id="metric-hsap-phase" style="font-size:12px;color:#b8c7dd;margin-left:6px;"></span>';
   grid.appendChild(hsapBlock);
 
   const scenarioBlock = document.createElement('div');
@@ -507,12 +507,12 @@ function updateCausalChain() {
 
   // Extinct
   if (f.population === 0) {
-    container.innerHTML = `<div style="color:#ef5350;font-size:11px;text-align:center;padding:8px;">Population at zero — chain not evaluable.</div>`;
+    container.innerHTML = `<div style="color:#ef5350;font-size:13px;text-align:center;padding:8px;">Population at zero — chain not evaluable.</div>`;
     return;
   }
   // Too few agents
   if (f.population < 20) {
-    container.innerHTML = `<div style="color:#ffb74d;font-size:11px;text-align:center;padding:8px;">Too few agents (${f.population}) for reliable chain interpretation.</div>`;
+    container.innerHTML = `<div style="color:#ffb74d;font-size:13px;text-align:center;padding:8px;">Too few agents (${f.population}) for reliable chain interpretation.</div>`;
     return;
   }
 
@@ -568,14 +568,14 @@ const TIMELINE_LEGEND = [
 ];
 
 function drawTimelineLegend(ctx, W) {
-  ctx.font = '11px sans-serif';
+  ctx.font = '13px sans-serif';
   let x = 16;
   const y = 14;
   for (const item of TIMELINE_LEGEND) {
     ctx.strokeStyle = item.color;
-    ctx.lineWidth = 3;
+    ctx.lineWidth = 4;
     ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + 16, y); ctx.stroke();
-    ctx.fillStyle = '#8a90b0';
+    ctx.fillStyle = '#c8d4e8';
     ctx.fillText(item.name, x + 20, y + 4);
     x += ctx.measureText(item.name).width + 34;
     if (x > W - 40) { x = 16; break; }
@@ -625,8 +625,8 @@ function drawTimelineDebug(canvas, ctx) {
   ctx.stroke();
 
   // Timestep label below marker
-  ctx.font = '10px monospace';
-  ctx.fillStyle = '#6a7090';
+  ctx.font = '12px monospace';
+  ctx.fillStyle = '#b8c7dd';
   ctx.textAlign = 'center';
   ctx.fillText(`t=${frameIndex}`, markerX, H - 4);
   ctx.textAlign = 'left';
@@ -717,13 +717,13 @@ function drawTimeline() {
   }
 
   // Y-axis
-  ctx.fillStyle = '#4a5070'; ctx.font = '9px sans-serif'; ctx.textAlign = 'right';
+  ctx.fillStyle = '#8fa3bf'; ctx.font = '11px sans-serif'; ctx.textAlign = 'right';
   ctx.fillText(maxPop, pad.left-4, pad.top+10);
   ctx.fillText(Math.round(maxPop/2), pad.left-4, chartY(0.5,0,1)+3);
   ctx.fillText(0, pad.left-4, pad.top+ph+4);
 
   // X-axis (event strip area - steps)
-  ctx.textAlign = 'center'; ctx.font = '8px sans-serif';
+  ctx.textAlign = 'center'; ctx.font = '10px sans-serif';
   const stepInterval = Math.max(1, Math.floor(frames.length / 8));
   for (let i = 0; i < frames.length; i += stepInterval) {
     ctx.fillText(frames[i].step, chartX(i), pad.top+ph+12);
@@ -772,17 +772,17 @@ function drawTimeline() {
   }
 
   // Event axis labels
-  ctx.fillStyle = '#4a5070'; ctx.font = '12px sans-serif'; ctx.textAlign = 'left';
+  ctx.fillStyle = '#8fa3bf'; ctx.font = '13px sans-serif'; ctx.textAlign = 'left';
   let ex = esPad.left + 4;
   for (const et of eventTypes) {
     ctx.fillStyle = et.color; ctx.fillRect(ex, esTop+2, 6, 6);
-    ctx.fillStyle = '#8a90b0'; ctx.fillText(et.label, ex+9, esTop+9);
+    ctx.fillStyle = '#c8d4e8'; ctx.fillText(et.label, ex+9, esTop+9);
     ex += ctx.measureText(et.label).width + 18;
     if (ex > W - esPad.right) break;
   }
 
   // Event y-axis
-  ctx.textAlign = 'right'; ctx.font = '10px sans-serif'; ctx.fillStyle = '#6a7090';
+  ctx.textAlign = 'right'; ctx.font = '12px sans-serif'; ctx.fillStyle = '#b8c7dd';
   ctx.fillText(maxEvent, esPad.left-4, esTop+10);
   ctx.fillText(0, esPad.left-4, esTop+esH);
 
@@ -794,7 +794,7 @@ function drawTimeline() {
   }
 
   // ── Timeline status label ──
-  ctx.fillStyle = '#6a7090'; ctx.font = '11px sans-serif'; ctx.textAlign = 'right';
+  ctx.fillStyle = '#b8c7dd'; ctx.font = '12px sans-serif'; ctx.textAlign = 'right';
   const currentStep = frames[currentFrame] ? frames[currentFrame].step : 0;
   ctx.fillText(`Timestep: ${currentStep} / ${frames[frames.length-1].step}`, W - pad.right, H - 2);
 }
@@ -846,7 +846,7 @@ function drawComparison() {
     }
 
     // Title
-    ctx.fillStyle = '#6a7090'; ctx.font = '8px sans-serif'; ctx.textAlign = 'center';
+    ctx.fillStyle = '#b8c7dd'; ctx.font = '10px sans-serif'; ctx.textAlign = 'center';
     ctx.fillText(name.replace(/_/g,' '), W/2, H-2);
 
     // Last HSAP value
